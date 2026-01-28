@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter from Nori to Nome</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#16a34a',
+                            light: '#4ade80',
+                            dark: '#166534',
+                        },
+                        secondary: {
+                            DEFAULT: '#facc15',
+                            light: '#fde047',
+                            dark: '#ca8a04',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes gentleFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+        }
+
+        @keyframes sunRise {
+            0% {
+                transform: translateY(20px) scale(0.9);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(0px) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes petalFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body {
+            background: linear-gradient(180deg,
+                    #fef3c7 0%,
+                    /* warm yellow */
+                    #fde68a 20%,
+                    /* light yellow */
+                    #fcd34d 40%,
+                    /* golden yellow */
+                    #f59e0b 60%,
+                    /* orange */
+                    #fb923c 80%,
+                    /* light orange */
+                    #f97316 100%
+                    /* deep orange */
+                );
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            animation: sunRise 2s ease-out;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .letter-paper {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%);
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .flower {
+            animation: gentleFloat 4s ease-in-out infinite;
+        }
+
+        .flower:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        .petal {
+            animation: petalFall linear infinite;
+        }
+
+        .petal:nth-child(1) {
+            animation-duration: 8s;
+            animation-delay: 0s;
+            left: 10%;
+        }
+
+        .petal:nth-child(2) {
+            animation-duration: 10s;
+            animation-delay: 2s;
+            left: 30%;
+        }
+
+        .petal:nth-child(3) {
+            animation-duration: 12s;
+            animation-delay: 4s;
+            left: 50%;
+        }
+
+        .petal:nth-child(4) {
+            animation-duration: 9s;
+            animation-delay: 1s;
+            left: 70%;
+        }
+
+        .petal:nth-child(5) {
+            animation-duration: 11s;
+            animation-delay: 3s;
+            left: 90%;
+        }
+
+        /* Shadow untuk text agar lebih terbaca */
+        .text-shadow {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Glow effect untuk surat */
+        .letter-glow {
+            box-shadow:
+                0 0 30px rgba(167, 243, 208, 0.4),
+                0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen px-4 py-8 relative">
+
+    <!-- FALLING PETALS -->
+    <div class="petal absolute text-white text-2xl opacity-70 pointer-events-none">🌸</div>
+    <div class="petal absolute text-white text-xl opacity-60 pointer-events-none">🌸</div>
+    <div class="petal absolute text-white text-3xl opacity-50 pointer-events-none">🌸</div>
+    <div class="petal absolute text-white text-2xl opacity-65 pointer-events-none">🌸</div>
+    <div class="petal absolute text-white text-xl opacity-55 pointer-events-none">🌸</div>
+
+    <!-- SUN -->
+    <div class="absolute top-10 right-10 w-32 h-32 rounded-full bg-gradient-radial opacity-40 blur-2xl pointer-events-none"
+        style="background: radial-gradient(circle, #fbbf24, transparent 70%);"></div>
+
+    <!-- MAIN CONTAINER -->
+    <div
+        class="relative z-10 flex items-start lg:items-center justify-center gap-4 lg:gap-8 max-w-6xl w-full mx-auto flex-wrap lg:flex-nowrap">
+
+        <!-- MUSIC PLAYER -->
+        <div class="fixed bottom-4 right-4 z-50 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg">
+            <button id="musicToggle" onclick="toggleMusic()"
+                class="w-12 h-12 flex items-center justify-center text-2xl hover:scale-110 transition-transform">
+                🎵
+            </button>
+        </div>
+
+        <!-- Hidden Audio Element -->
+        <audio id="backgroundMusic" loop>
+            <!-- Ganti URL ini dengan link musik yang kamu mau -->
+            <source src="Before Spring Ends WangOK_2.mp3" type="audio/mpeg">
+        </audio>
+        <!-- LEFT FLOWER -->
+        <div class="flower hidden lg:block flex-shrink-0">
+            <svg width="100" height="180" viewBox="0 0 120 200" class="drop-shadow-lg">
+                <!-- Stem -->
+                <path d="M60 200 Q50 150 60 100" stroke="#059669" stroke-width="3" fill="none" />
+                <path d="M60 100 Q70 50 60 0" stroke="#059669" stroke-width="3" fill="none" />
+
+                <!-- Leaves -->
+                <ellipse cx="45" cy="140" rx="15" ry="8" fill="#10b981" opacity="0.8" transform="rotate(-30 45 140)" />
+                <ellipse cx="75" cy="120" rx="15" ry="8" fill="#10b981" opacity="0.8" transform="rotate(30 75 120)" />
+
+                <!-- Flower petals (Casablanca Lily) -->
+                <ellipse cx="60" cy="30" rx="12" ry="25" fill="white" opacity="0.95" />
+                <ellipse cx="60" cy="30" rx="12" ry="25" fill="white" opacity="0.95" transform="rotate(60 60 30)" />
+                <ellipse cx="60" cy="30" rx="12" ry="25" fill="white" opacity="0.95" transform="rotate(120 60 30)" />
+                <ellipse cx="60" cy="30" rx="12" ry="25" fill="white" opacity="0.95" transform="rotate(180 60 30)" />
+                <ellipse cx="60" cy="30" rx="12" ry="25" fill="white" opacity="0.95" transform="rotate(240 60 30)" />
+                <ellipse cx="60" cy="30" rx="12" ry="25" fill="white" opacity="0.95" transform="rotate(300 60 30)" />
+
+                <!-- Center -->
+                <circle cx="60" cy="30" r="5" fill="#fbbf24" />
+            </svg>
+        </div>
+
+        <!-- LETTER PAPER -->
+        <div
+            class="letter-paper letter-glow w-full max-w-md sm:max-w-xl md:max-w-2xl rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 lg:p-16 relative my-4 sm:my-8">
+
+            <!-- Decorative corner -->
+            <div
+                class="absolute top-2 left-2 sm:top-3 sm:left-3 md:top-4 md:left-4 w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 border-t-2 border-l-2 border-emerald-600 opacity-30 rounded-tl-lg">
+            </div>
+            <div
+                class="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 md:bottom-4 md:right-4 w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 border-b-2 border-r-2 border-emerald-600 opacity-30 rounded-br-lg">
+            </div>
+
+            <!-- Mobile Flowers (inside letter) - Only visible on mobile -->
+            <div class="absolute -top-3 -left-2 lg:hidden opacity-80">
+                <svg width="50" height="80" viewBox="0 0 120 200" class="drop-shadow-md">
+                    <!-- Stem -->
+                    <path d="M60 200 Q50 150 60 100" stroke="#059669" stroke-width="2" fill="none" />
+                    <path d="M60 100 Q70 80 60 60" stroke="#059669" stroke-width="2" fill="none" />
+                    <!-- Leaves -->
+                    <ellipse cx="45" cy="120" rx="10" ry="6" fill="#10b981" opacity="0.8"
+                        transform="rotate(-30 45 120)" />
+                    <!-- Flower petals -->
+                    <ellipse cx="60" cy="70" rx="8" ry="16" fill="white" opacity="0.95" />
+                    <ellipse cx="60" cy="70" rx="8" ry="16" fill="white" opacity="0.95" transform="rotate(60 60 70)" />
+                    <ellipse cx="60" cy="70" rx="8" ry="16" fill="white" opacity="0.95" transform="rotate(120 60 70)" />
+                    <ellipse cx="60" cy="70" rx="8" ry="16" fill="white" opacity="0.95" transform="rotate(180 60 70)" />
+                    <ellipse cx="60" cy="70" rx="8" ry="16" fill="white" opacity="0.95" transform="rotate(240 60 70)" />
+                    <ellipse cx="60" cy="70" rx="8" ry="16" fill="white" opacity="0.95" transform="rotate(300 60 70)" />
+                    <!-- Center -->
+                    <circle cx="60" cy="70" r="3" fill="#fbbf24" />
+                </svg>
+            </div>
+
+            <div class="absolute -bottom-3 -right-2 lg:hidden opacity-80">
+                <svg width="50" height="80" viewBox="0 0 120 200" class="drop-shadow-md">
+                    <!-- Stem -->
+                    <path d="M60 200 Q70 150 60 100" stroke="#059669" stroke-width="2" fill="none" />
+                    <path d="M60 100 Q50 80 60 60" stroke="#059669" stroke-width="2" fill="none" />
+                    <!-- Leaves -->
+                    <ellipse cx="75" cy="120" rx="10" ry="6" fill="#10b981" opacity="0.8"
+                        transform="rotate(30 75 120)" />
+                    <!-- Flower petals -->
+                    <ellipse cx="60" cy="70" rx="8" ry="16" fill="white" opacity="0.95" />
+                    <ellipse cx="60" cy="70" rx="8" ry="16" fill="white" opacity="0.95" transform="rotate(60 60 70)" />
+                    <ellipse cx="60" cy="70" rx="8" ry="16" fill="white" opacity="0.95" transform="rotate(120 60 70)" />
+                    <ellipse cx="60" cy="70" rx="8" ry="16" fill="white" opacity="0.95" transform="rotate(180 60 70)" />
+                    <ellipse cx="60" cy="70" rx="8" ry="16" fill="white" opacity="0.95" transform="rotate(240 60 70)" />
+                    <ellipse cx="60" cy="70" rx="8" ry="16" fill="white" opacity="0.95" transform="rotate(300 60 70)" />
+                    <!-- Center -->
+                    <circle cx="60" cy="70" r="3" fill="#fbbf24" />
+                </svg>
+            </div>
+
+            <!-- LETTER CONTENT - EDIT DI SINI -->
+            <div class="space-y-3 sm:space-y-4 md:space-y-6 text-gray-800">
+
+                <!-- Header -->
+                <div class="text-center mb-3 sm:mb-4 md:mb-8">
+                    <h1
+                        class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-emerald-800 text-shadow mb-1 sm:mb-2">
+                        For My Nome 🤍
+                    </h1>
+                    <p class="text-xs sm:text-sm md:text-base text-emerald-700 opacity-80">
+                        With all of my heart i made this for you
+                    </p>
+                </div>
+
+                <!-- Body - TULIS ISI SURAT DI SINI -->
+                <div
+                    class="space-y-2 sm:space-y-3 md:space-y-4 text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-shadow">
+
+                    <p class="indent-6 sm:indent-8">
+                        Hello My Lovely Nome💚
+                    </p>
+
+                    <p class="indent-6 sm:indent-8">
+                        Maaf ya kalau aku sering bikin kamu capek. I knew that sometimes my behaviour lil bit made you
+                        upset,
+                        But i'd try more harder to understanding your feeling, cause you are the one that i love... Aku
+                        pengen kamu dan aku
+                        selalu bahagia, aku gak mau kamu ngerasa excited sendirian lagi.
+                    </p>
+
+                    <p class="indent-6 sm:indent-8">
+                        Aku janji akan lebih baik lagi. Akan lebih dengerin kamu, lebih memahami kamu, dan lebih
+                        perhatian sama apa yang kamu rasain. Kamu itu penting buat aku, dan aku nggak
+                        mau kehilangan kamu gara-gara kesalahan aku.
+                    </p>
+
+                    <p class="indent-6 sm:indent-8">
+                        Terima kasih udah selalu sabar sama aku. Terima kasih udah mau ngerti aku.
+                        Aku beneran berterimakasih mau menghabiskan waktu luangmu bersamaku.
+                    </p>
+
+                    <p
+                        class="text-center mt-4 sm:mt-6 md:mt-8 font-semibold text-emerald-800 text-base sm:text-lg md:text-xl lg:text-2xl">
+                        Atas kesadaranku, dan dari lubuk hati yang paling dalam aku minta maaf🙏💚
+                    </p>
+
+                    <p
+                        class="text-right mt-3 sm:mt-4 md:mt-6 italic text-emerald-700 text-xs sm:text-sm md:text-base lg:text-lg">
+                        Penuh cinta,<br />
+                        <span class="font-semibold text-sm sm:text-base md:text-lg lg:text-xl">Nori</span>
+                    </p>
+
+                </div>
+
+                <!-- Footer decoration -->
+                <div class="flex justify-center mt-4 sm:mt-6 md:mt-8 gap-2 text-lg sm:text-xl md:text-2xl opacity-60">
+                    🌸 💚 🌸
+                </div>
+
+            </div>
+        </div>
+
+        <!-- RIGHT FLOWER -->
+        <div class="flower hidden lg:block flex-shrink-0">
+            <svg width="100" height="180" viewBox="0 0 120 200" class="drop-shadow-lg">
+                <!-- Stem -->
+                <path d="M60 200 Q70 150 60 100" stroke="#059669" stroke-width="3" fill="none" />
+                <path d="M60 100 Q50 50 60 0" stroke="#059669" stroke-width="3" fill="none" />
+
+                <!-- Leaves -->
+                <ellipse cx="75" cy="140" rx="15" ry="8" fill="#10b981" opacity="0.8" transform="rotate(30 75 140)" />
+                <ellipse cx="45" cy="120" rx="15" ry="8" fill="#10b981" opacity="0.8" transform="rotate(-30 45 120)" />
+
+                <!-- Flower petals (Casablanca Lily) -->
+                <ellipse cx="60" cy="30" rx="12" ry="25" fill="white" opacity="0.95" />
+                <ellipse cx="60" cy="30" rx="12" ry="25" fill="white" opacity="0.95" transform="rotate(60 60 30)" />
+                <ellipse cx="60" cy="30" rx="12" ry="25" fill="white" opacity="0.95" transform="rotate(120 60 30)" />
+                <ellipse cx="60" cy="30" rx="12" ry="25" fill="white" opacity="0.95" transform="rotate(180 60 30)" />
+                <ellipse cx="60" cy="30" rx="12" ry="25" fill="white" opacity="0.95" transform="rotate(240 60 30)" />
+                <ellipse cx="60" cy="30" rx="12" ry="25" fill="white" opacity="0.95" transform="rotate(300 60 30)" />
+
+                <!-- Center -->
+                <circle cx="60" cy="30" r="5" fill="#fbbf24" />
+            </svg>
+        </div>
+
+    </div>
+
+    <!-- INSTRUCTION COMMENT -->
+    <!-- 
+    CARA EDIT ISI SURAT:
+    1. Cari section "TULIS ISI SURAT DI SINI" (sekitar baris 125)
+    2. Edit text di dalam tag <p> sesuai keinginan
+    3. Gunakan <p class="indent-8"> untuk paragraf baru
+    4. Gunakan <br/> untuk baris baru dalam paragraf
+    5. Save dan reload browser
+    -->
+    <script>
+        const music = document.getElementById('backgroundMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        let isPlaying = false;
+
+        // Function to toggle music
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicToggle.textContent = '🎵';
+                isPlaying = false;
+            } else {
+                music.play().catch(error => {
+                    console.log('Autoplay was prevented:', error);
+                });
+                musicToggle.textContent = '🔊';
+                isPlaying = true;
+            }
+        }
+
+        // Try to autoplay when page loads
+        window.addEventListener('load', () => {
+            // Delay untuk memastikan halaman sudah selesai load
+            setTimeout(() => {
+                music.play().then(() => {
+                    musicToggle.textContent = '🔊';
+                    isPlaying = true;
+                }).catch(error => {
+                    console.log('Autoplay was prevented. User needs to click the music button.');
+                    // Musik tidak autoplay, user harus klik button
+                });
+            }, 1000);
+        });
+    </script>
+
+</body>
+
+</html>
